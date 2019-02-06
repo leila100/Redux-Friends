@@ -1,11 +1,13 @@
-import React, { Component } from "react"
+import React from "react"
 
-import "./App.css"
+import FriendsList from "./containers/FriendsList"
 
-class App extends Component {
-  render() {
-    return <div className="App" />
-  }
+const App = props => {
+  return (
+    <div>
+      <FriendsList />
+    </div>
+  )
 }
 
 export default App
