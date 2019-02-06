@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { fetchFriends } from "../actions"
+import { fetchFriends, showForm } from "../actions"
 import Friend from "../components/Friend"
 
 class FriendsList extends Component {
@@ -17,6 +17,7 @@ class FriendsList extends Component {
         {this.props.friends.map(friend => (
           <Friend friend={friend} key={friend.id} />
         ))}
+        <button onClick={() => this.props.showForm("add")}>Add Friend</button>
       </div>
     )
   }
@@ -32,5 +33,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchFriends: fetchFriends }
+  { fetchFriends: fetchFriends, showForm: showForm }
 )(FriendsList)
