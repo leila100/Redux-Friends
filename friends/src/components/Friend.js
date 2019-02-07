@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { showForm } from "../store/actions"
+import { showForm, deleteFriend } from "../store/actions"
 
 const Friend = props => {
   return (
@@ -16,7 +16,10 @@ const Friend = props => {
           className="fas fa-user-edit"
           onClick={() => props.showForm("Update", props.friend)}
         />
-        <i className="fas fa-user-minus" />
+        <i
+          className="fas fa-user-minus"
+          onClick={() => props.deleteFriend(props.friend.id)}
+        />
       </div>
     </div>
   )
@@ -24,5 +27,5 @@ const Friend = props => {
 
 export default connect(
   null,
-  { showForm }
+  { showForm, deleteFriend }
 )(Friend)

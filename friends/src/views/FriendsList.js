@@ -12,8 +12,10 @@ class FriendsList extends Component {
   render() {
     return (
       <div>
-        {this.props.error !== null ? <h2>{this.props.error}</h2> : null}
-        {this.props.loading ? <h2>Loading your friends!!</h2> : null}
+        {this.props.error !== null && <h2>{this.props.error}</h2>}
+        {this.props.loading && <h2>Loading your friends!!</h2>}
+        {this.props.updating && <h2>Updating your friend</h2>}
+        {this.props.deleting && <h2>Deleting your friend</h2>}
         {this.props.friends.map(friend => (
           <Friend friend={friend} key={friend.id} />
         ))}
@@ -27,6 +29,8 @@ const mapStateToProps = state => {
   return {
     friends: state.friends,
     loading: state.fetching,
+    updating: state.updating,
+    deleting: state.deleting,
     error: state.error
   }
 }

@@ -6,6 +6,8 @@ import {
   SAVED,
   UPDATING,
   UPDATED,
+  DELETING,
+  DELETED,
   SHOW_FORM
 } from "../actions"
 
@@ -69,6 +71,17 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         updating: false,
+        friends: action.payload
+      }
+    case DELETING:
+      return {
+        ...state,
+        deleting: true
+      }
+    case DELETED:
+      return {
+        ...state,
+        deleting: false,
         friends: action.payload
       }
     default:
