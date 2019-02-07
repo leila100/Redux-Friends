@@ -1,14 +1,14 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import FriendsList from "./containers/FriendsList"
-import FriendForm from "./containers/FriendForm"
+import FriendsList from "./views/FriendsList"
+import FriendForm from "./views/FriendForm"
 
 const App = props => {
   return (
     <div>
       <FriendsList />
-      {props.showForm ? <FriendForm action={props.showForm} /> : null}
+      {props.showForm ? <FriendForm /> : null}
     </div>
   )
 }

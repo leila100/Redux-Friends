@@ -1,7 +1,17 @@
-import { FETCHING, FETCHED, ERROR, SAVING, SAVED, SHOW_FORM } from "../actions"
+import {
+  FETCHING,
+  FETCHED,
+  ERROR,
+  SAVING,
+  SAVED,
+  UPDATING,
+  UPDATED,
+  SHOW_FORM
+} from "../actions"
 
 const initialState = {
   showForm: "",
+  currentFriend: {},
   fetching: false,
   saving: false,
   updating: false,
@@ -13,7 +23,6 @@ const initialState = {
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case FETCHING:
-      console.log("In FETCHING")
       return {
         ...state,
         fetching: true,
@@ -35,7 +44,8 @@ export function reducer(state = initialState, action) {
     case SHOW_FORM:
       return {
         ...state,
-        showForm: action.actionType
+        showForm: action.actionType,
+        currentFriend: action.currentFriend
       }
     case SAVING:
       return {
@@ -47,6 +57,18 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         saving: false,
+        friends: action.payload
+      }
+    case UPDATING:
+      return {
+        ...state,
+        showForm: false,
+        updating: true
+      }
+    case UPDATED:
+      return {
+        ...state,
+        updating: false,
         friends: action.payload
       }
     default:

@@ -4,6 +4,8 @@ export const FETCHING = "FETCHING"
 export const FETCHED = "FETCHED"
 export const SAVING = "SAVING"
 export const SAVED = "SAVED"
+export const UPDATING = "UPDATING"
+export const UPDATED = "UPDATED"
 export const ERROR = "ERROR"
 export const SHOW_FORM = "SHOW_FORM"
 
@@ -21,8 +23,8 @@ export function fetchFriends() {
   }
 }
 
-export function showForm(actionType) {
-  return { type: SHOW_FORM, actionType: actionType }
+export function showForm(actionType, friend) {
+  return { type: SHOW_FORM, actionType: actionType, currentFriend: friend }
 }
 
 export function addFriend(friend) {
@@ -35,6 +37,20 @@ export function addFriend(friend) {
       })
       .catch(error => {
         dispatch({ type: ERROR, payload: "Can't add your friend!" })
+      })
+  }
+}
+
+export function updateFriend(id, friend) {
+  return dispatch => {
+    dispatch({ type: UPDATING })
+    axios
+      .put(`http://localhost:5000/api/friends/${id}`, friend)
+      .then(response => {
+        dispatch({ type: UPDATED, payload: response.data })
+      })
+      .catch(error => {
+        dispatch({ type: ERROR, payload: "Can't update your friend!" })
       })
   }
 }

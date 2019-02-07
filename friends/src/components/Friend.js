@@ -1,4 +1,7 @@
 import React from "react"
+import { connect } from "react-redux"
+
+import { showForm } from "../store/actions"
 
 const Friend = props => {
   return (
@@ -8,8 +11,18 @@ const Friend = props => {
         <li>{props.friend.age}</li>
         <li>{props.friend.email}</li>
       </ul>
+      <div>
+        <i
+          className="fas fa-user-edit"
+          onClick={() => props.showForm("Update", props.friend)}
+        />
+        <i className="fas fa-user-minus" />
+      </div>
     </div>
   )
 }
 
-export default Friend
+export default connect(
+  null,
+  { showForm }
+)(Friend)

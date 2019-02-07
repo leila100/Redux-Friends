@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { addFriend } from "../actions"
+import { addFriend, updateFriend } from "../store/actions"
 
 class FriendForm extends Component {
   constructor(props) {
@@ -13,10 +13,24 @@ class FriendForm extends Component {
     }
   }
 
+  componentDidMount = () => {
+    if (this.props.currentFriend) {
+      const friend = this.props.friends.find(
+        friend => friend.id === this.props.currentFriend.id
+      )
+      this.setState({
+        name: friend.name,
+        age: friend.age,
+        email: friend.email
+      })
+    }
+  }
+
   action = event => {
     event.preventDefault()
-    console.log(this.props.action)
-    if (this.props.action === "add") this.props.addFriend(this.state)
+    if (this.props.action === "Add") this.props.addFriend(this.state)
+    if (this.props.action === "Update")
+      this.props.updateFriend(this.props.currentFriend.id, this.state)
   }
 
   saveInput = event => {
@@ -47,13 +61,21 @@ class FriendForm extends Component {
           value={this.state.email}
           onChange={this.saveInput}
         />
-        <button type="submit">Add Friend</button>
+        <button type="submit">{this.props.action} Friend</button>
       </form>
     )
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    action: state.showForm,
+    currentFriend: state.currentFriend,
+    friends: state.friends
+  }
+}
+
 export default connect(
-  null,
-  { addFriend: addFriend }
+  mapStateToProps,
+  { addFriend: addFriend, updateFriend: updateFriend }
 )(FriendForm)
