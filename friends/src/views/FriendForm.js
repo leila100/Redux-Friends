@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import { addFriend, updateFriend } from "../store/actions"
+import { Form, Button } from "../styles/formStyles"
 
 class FriendForm extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class FriendForm extends Component {
     this.state = {
       name: "",
       age: undefined,
-      email: ""
+      email: "",
+      canSubmit: false
     }
   }
 
@@ -35,11 +37,13 @@ class FriendForm extends Component {
 
   saveInput = event => {
     this.setState({ [event.target.name]: event.target.value })
+    if (this.state.name && this.state.age && this.state.email)
+      this.setState({ canSubmit: true })
   }
 
   render() {
     return (
-      <form onSubmit={this.action}>
+      <Form onSubmit={this.action}>
         <input
           type="text"
           name="name"
@@ -61,8 +65,10 @@ class FriendForm extends Component {
           value={this.state.email}
           onChange={this.saveInput}
         />
-        <button type="submit">{this.props.action} Friend</button>
-      </form>
+        <Button type="submit" disabled={!this.state.canSubmit}>
+          {this.props.action} Friend
+        </Button>
+      </Form>
     )
   }
 }

@@ -40,48 +40,60 @@ export function reducer(state = initialState, action) {
     case ERROR:
       return {
         ...state,
+        error: action.payload,
+        showForm: "",
         fetching: false,
-        error: action.payload
+        saving: false,
+        updating: false,
+        deleting: false
       }
     case SHOW_FORM:
       return {
         ...state,
         showForm: action.actionType,
+        error: null,
         currentFriend: action.currentFriend
       }
     case SAVING:
       return {
         ...state,
-        showForm: false,
+        showForm: "",
+        error: null,
         saving: true
       }
     case SAVED:
       return {
         ...state,
         saving: false,
+        error: null,
         friends: action.payload
       }
     case UPDATING:
       return {
         ...state,
-        showForm: false,
+        showForm: "",
+        error: null,
         updating: true
       }
     case UPDATED:
       return {
         ...state,
         updating: false,
+        error: null,
         friends: action.payload
       }
     case DELETING:
       return {
         ...state,
+        error: null,
+        showForm: "",
         deleting: true
       }
     case DELETED:
       return {
         ...state,
         deleting: false,
+        error: null,
         friends: action.payload
       }
     default:
